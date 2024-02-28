@@ -34,7 +34,7 @@ export default {
     async storeData({ state }, params) {
       try {
 
-        const {data} = await axios.post(`http://localhost:3007/api/taska`, params, {
+        const {data} = await axios.post(`http://localhost:3007/api/task`, params, {
           headers: {
             'Content-Type': 'application/json'
           }
