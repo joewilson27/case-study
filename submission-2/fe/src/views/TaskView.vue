@@ -2,6 +2,13 @@
   <div class="task">
     
     <h2>TASK</h2>
+    <!-- ALERT MESSAGE -->
+    <span style="float: left;" v-if="showAlert">
+      <span :style="statusAlert == 'success' ? {'color': 'green'} : {'color': 'red'}">
+        {{ messageAlert }}
+      </span>
+    </span>
+    
     <div style="float: right;">
       <button class="button button1" type="button" @click="openModal">
         Add
@@ -75,6 +82,25 @@ const columnHeader = ref(["Task Name", "Content", "Date Created", "Status", "act
 const rowsData = computed(() => {
   return store.state.task.data
 })
+const showAlert = computed(() => {
+  return store.state.task.show_alert
+})
+const statusAlert = computed(() => {
+  return store.state.task.status
+})
+const messageAlert = computed(() => {
+  return store.state.task.message
+})
+
+// watch
+watch(showAlert, async (newX, oldX) => {
+  if (newX) {
+    console.log('showAlert new ', newX)
+    setTimeout(() => {
+      store.state.task.show_alert = false
+    }, 4000)
+  }
+})
 
 // mounted
 onMounted(() => {
@@ -87,7 +113,6 @@ const openModal = () => {
   isModalOpened.value = true
 }
 const closeModal = () => {
-  console.log('closeee')
   isModalOpened.value = false
   getData()
 }
@@ -99,6 +124,7 @@ const openModalDelete = (id, name) => {
 }
 const closeModalDelete = () => {
   isModalDeleteOpened.value = false
+  getData()
 }
 </script>
 

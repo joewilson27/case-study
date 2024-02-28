@@ -11,7 +11,7 @@ const props = defineProps({
 })
 
 // emits
-const emit = defineEmits(["modal-close"])
+const emit = defineEmits()
 
 const target = ref(null)
 
@@ -32,6 +32,9 @@ const addHandler = () => {
       {
         // process
         store.dispatch("task/storeData", form.value).then((data) => {
+          form.value.name = ""
+          form.value.content = ""
+          form.value.status = "ongoing"
           emit("modal-close")
         })
         
@@ -40,6 +43,10 @@ const addHandler = () => {
     // throw an error
     errMessage.value = "All input fields must be filled"
   }
+}
+
+const closeHandler = () => {
+  emit("modal-close")
 }
 </script>
 
@@ -74,7 +81,7 @@ const addHandler = () => {
         <div class="modal-footer">
           <slot name="footer">
             <div>
-              <button @click="addHandler">Submit</button>
+              <button class="button button1" @click="addHandler">Submit</button> | <button class="button button2" @click="closeHandler">Cancel</button>
             </div>
           </slot>
         </div>
@@ -102,4 +109,39 @@ const addHandler = () => {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
 }
 
+
+.button {
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button1 {
+  background-color: white; 
+  color: black; 
+  border: 1px solid #04AA6D;
+}
+
+.button1:hover {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.button2 {
+  background-color: white; 
+  color: black; 
+  border: 1px solid #ff4d4d;
+}
+
+.button2:hover {
+  background-color: #ff1a1a;
+  color: white;
+}
 </style>

@@ -27,7 +27,11 @@ export default {
         console.log('data ', data.data)
 
       } catch (err) {
-        alert("Error")
+       
+        state.show_alert = true
+        state.status = "error"
+        state.message = "Get data failed. try again later or contact your administrator"
+
       }
     },
     async storeData({ state }, params) {
@@ -39,13 +43,37 @@ export default {
           }
         })
 
-        console.log('success ', data)
+        state.show_alert = true
+        state.status = "success"
+        state.message = "create data successfully"
 
       } catch (err) {
 
-        console.log('PRINT ERROR ', err)
+        state.show_alert = true
+        state.status = "error"
+        state.message = "create data failed. try again later or contact your administrator"
 
       }
     },
+    async deleteData({ state }, id) {
+      try {
+        const { data } = await axios.delete(`http://localhost:3007/api/task/${id}`, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+
+        state.show_alert = true
+        state.status = "success"
+        state.message = "delete data successfully"
+
+      } catch (err) {
+        
+        state.show_alert = true
+        state.status = "error"
+        state.message = "delete data failed. try again later or contact your administrator"
+
+      }
+    }
   }
 }

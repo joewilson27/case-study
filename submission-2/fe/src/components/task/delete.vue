@@ -2,6 +2,9 @@
 import { defineProps, defineEmits, ref } from "vue"
 import { useStore } from 'vuex'
 
+// emits
+const emit = defineEmits()
+
 // store
 const store = useStore()
 
@@ -11,6 +14,20 @@ const props = defineProps({
   idTask: Number,
   taskName: String,
 })
+
+// method
+const submitHandler = () => {
+  if (props.idTask != "" || props.idTask != 0) {
+    store.dispatch("task/deleteData", props.idTask)
+         .then((data) => {
+          emit("modal-close")
+         })
+  }
+}
+
+const closeHandler = () => {
+  emit("modal-close")
+}
 
 </script>
 <template>
@@ -28,8 +45,8 @@ const props = defineProps({
 
           <br />
           <br />
-          <button class="button button1" type="button">Yes</button>  |
-          <button class="button button2" type="button">Cancel</button>
+          <button class="button button1" type="button" @click="submitHandler">Yes</button>  |
+          <button class="button button2" type="button" @click="closeHandler">Cancel</button>
         </div>
       </div>
     </div>
