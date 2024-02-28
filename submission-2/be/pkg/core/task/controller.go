@@ -149,3 +149,26 @@ func UpdateTask(c *fiber.Ctx) error {
 		Meta: model.Meta{Message: response.SuccessUpdate},
 	})
 }
+
+func GetTaskComplete(c *fiber.Ctx) error {
+
+	svc := Service{
+		DB:  db.PG,
+		Ctx: c,
+	}
+
+	result, err := svc.GetTasksComplete()
+	if err != nil {
+		dataReturnError := model.AppResponse{
+			Data: nil,
+			Meta: model.Meta{Message: response.GetDataFailed + " : " + err.Error()},
+		}
+		return c.Status(fiber.StatusBadRequest).JSON(dataReturnError)
+	}
+
+	return c.Status(fiber.StatusOK).JSON(model.AppResponse{
+		Data: result,
+		Meta: model.Meta{Message: response.GetDataSuccessfully},
+	})
+
+}

@@ -18,4 +18,5 @@ func Task(taskRoutes fiber.Router) {
 
 	taskRoutes.Patch("/:id", task.UpdateTask)
 
+	taskRoutes.Get("/complete", task.GetTaskComplete)
 }

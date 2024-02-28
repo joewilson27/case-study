@@ -1,24 +1,19 @@
 <template>
   <div class="task">
     
-    <h2>TASK</h2>
+    <h2>TASK COMPLETE</h2>
     <!-- ALERT MESSAGE -->
-    <!-- <div style="background-color: rgb(132, 132, 160);" v-if="showAlert">
+    <span style="float: left;" v-if="showAlert">
       <span :style="statusAlert == 'success' ? {'color': 'green'} : {'color': 'red'}">
         {{ messageAlert }}
       </span>
-    </div> -->
-    <div v-if="showAlert" :class="`${statusAlert == 'success' ? 'alertSuccess' : 'alertError'}`">
-      <strong v-if="statusAlert=='error'">ERROR!</strong> {{ messageAlert }}
-    </div>
+    </span>
     
-    <!-- BUTTON ADD-->
-    <div style="float: right;">
+    <!-- <div style="float: right;">
       <button class="button button1" type="button" @click="openModal">
         Add
       </button>
-    </div>
-
+    </div> -->
     <table class="custom-table">
     <thead>
       <tr>
@@ -38,14 +33,6 @@
        </td>
        <td>
         {{ moment(row.created_at).format("D-M-YYYY H:ss") }} 
-       </td>
-       <td>
-        <button class="button button3" type="button" @click="openModalEdit(row.id, row)">
-          Edit
-        </button>
-        <button class="button button2" type="button" @click="openModalDelete(row.id, row.name)">
-          Delete
-        </button>
        </td>
       </tr>
     </tbody>
@@ -88,7 +75,7 @@ const rows = ref([
     actions: ""
   }
 ])
-const columnHeader = ref(["Task Name", "Content", "Status", "Date Created", "actions"])
+const columnHeader = ref(["Task Name", "Content", "Status", "Date Created"])
 
 // computed
 const rowsData = computed(() => {
@@ -119,7 +106,7 @@ onMounted(() => {
 })
 
 // methods
-const getData = (() => { store.dispatch('task/getData') })
+const getData = (() => { store.dispatch('task/getDataComplete') })
 const openModal = () => {
   isModalOpened.value = true
 }
@@ -214,16 +201,4 @@ const closeModalEdit = () => {
   background-color: #e6b800;
   color: white;
 }
-
-.alertError {
-  padding: 20px;
-  background-color: #f44336;
-  color: white;
-}
-.alertSuccess {
-  padding: 20px;
-  background-color: #23a534;
-  color: white;
-}
-
 </style>

@@ -17,14 +17,11 @@ export default {
   },
   actions: {
     async getData({ state }, params) {
-      console.log('process getdata')
       try {
 
         const { data } = await axios.get(`http://localhost:3007/api/task`)
         
         state.data = data.data
-
-        console.log('data ', data.data)
 
       } catch (err) {
        
@@ -37,7 +34,7 @@ export default {
     async storeData({ state }, params) {
       try {
 
-        const {data} = await axios.post(`http://localhost:3007/api/task`, params, {
+        const {data} = await axios.post(`http://localhost:3007/api/taska`, params, {
           headers: {
             'Content-Type': 'application/json'
           }
@@ -93,8 +90,22 @@ export default {
 
       }
 
-      console.log('id => ', params.id)
-      console.log('params => ', params.data)
-    }
+    },
+    async getDataComplete({ state }, params) {
+
+      try {
+
+        const { data } = await axios.get(`http://localhost:3007/api/task/complete`)
+        
+        state.data = data.data
+
+      } catch (err) {
+       
+        state.show_alert = true
+        state.status = "error"
+        state.message = "Get data failed. try again later or contact your administrator"
+
+      }
+    },
   }
 }

@@ -47,3 +47,15 @@ func (repo *repository) Update(data Task) error {
 
 	return result.Error
 }
+
+func (repo *repository) GetTasksComplete() ([]*Task, error) {
+	tasks := []*Task{}
+
+	err := repo.DB.Where("status = ?", "complete").Find(&tasks)
+
+	if err.Error != nil {
+		return nil, err.Error
+	}
+
+	return tasks, nil
+}

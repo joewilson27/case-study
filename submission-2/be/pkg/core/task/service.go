@@ -90,3 +90,18 @@ func (svc *Service) UpdateByID(id uint, dataInput TaskAdd) error {
 
 	return err
 }
+
+func (svc *Service) GetTasksComplete() ([]*Task, error) {
+
+	repo := repository{
+		DB: svc.DB,
+	}
+
+	result, err := repo.GetTasksComplete()
+
+	if err != nil {
+		return nil, err
+	}
+
+	return result, err
+}

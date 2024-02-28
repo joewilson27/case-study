@@ -20,6 +20,11 @@ const routes = [
     path: '/task',
     name: 'task',
     component: TaskView
+  },
+  {
+    path: '/task/complete',
+    name: 'taskComplete',
+    component: () => import(/* webpackChunkName: "about" */ '../views/TaskCompleteView.vue')
   }
 ]
 
