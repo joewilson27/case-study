@@ -17,7 +17,7 @@ func (repo *repository) Create() error {
 func (repo *repository) GetTasks() ([]*Task, error) {
 	tasks := []*Task{}
 
-	err := repo.DB.Find(&tasks)
+	err := repo.DB.Where("status <> ?", "complete").Find(&tasks)
 
 	if err.Error != nil {
 		return nil, err.Error

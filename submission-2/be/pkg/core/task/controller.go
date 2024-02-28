@@ -136,7 +136,7 @@ func UpdateTask(c *fiber.Ctx) error {
 		DB:  db.PG,
 		Ctx: c,
 	}
-	fmt.Println("dataa ", dataInput)
+
 	if err := svc.UpdateByID(uint(id), dataInput); err != nil {
 		dataReturnError := model.AppResponse{
 			Meta: model.Meta{Message: response.FailedToUpdate + " " + err.Error()},

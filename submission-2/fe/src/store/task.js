@@ -74,6 +74,27 @@ export default {
         state.message = "delete data failed. try again later or contact your administrator"
 
       }
+    },
+    async editData({ state }, params) {
+
+      try {
+
+        const { data } = await axios.patch(`http://localhost:3007/api/task/${params.id}`, params.data)
+
+        state.show_alert = true
+        state.status = "success"
+        state.message = "edit data successfully"
+
+      } catch (err) {
+        
+        state.show_alert = true
+        state.status = "error"
+        state.message = "edit data failed. try again later or contact your administrator"
+
+      }
+
+      console.log('id => ', params.id)
+      console.log('params => ', params.data)
     }
   }
 }

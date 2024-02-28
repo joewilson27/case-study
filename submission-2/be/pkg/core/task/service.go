@@ -81,8 +81,9 @@ func (svc *Service) UpdateByID(id uint, dataInput TaskAdd) error {
 	}
 
 	updateData := Task{
-		Name:   dataInput.Name,
-		Status: dataInput.Status,
+		Name:    dataInput.Name,
+		Content: dataInput.Content,
+		Status:  dataInput.Status,
 	}
 
 	err := repo.Update(updateData)

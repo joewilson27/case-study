@@ -35,6 +35,9 @@
         {{ moment(row.created_at).format("D-M-YYYY H:ss") }} 
        </td>
        <td>
+        <button class="button button3" type="button" @click="openModalEdit(row.id, row)">
+          Edit
+        </button>
         <button class="button button2" type="button" @click="openModalDelete(row.id, row.name)">
           Delete
         </button>
@@ -45,6 +48,7 @@
 
   <ModalComponent :isOpen="isModalOpened" @modal-close="closeModal" name="first-modal" />
   <ModalDeleteComponent :isOpen="isModalDeleteOpened" :idTask="idTask" :taskName="taskName" @modal-close="closeModalDelete" name="second-modal" />
+  <ModalEditComponent :isOpen="isModalEditOpened" :idTask="idTask" :editData="editData" @modal-close="closeModalEdit" name="second-modal" />
   </div>
 </template>
 <script setup>
@@ -53,6 +57,7 @@ import { ref, onMounted, computed, watch } from 'vue'
 import { useStore } from 'vuex'
 import ModalComponent from '@/components/task/add.vue'
 import ModalDeleteComponent from '@/components/task/delete'
+import ModalEditComponent from '@/components/task/edit'
 
 // store
 const store = useStore()
@@ -65,8 +70,10 @@ const form = ref({
   password: '',
   remember: false,
 })
+const editData = ref({})
 const isModalOpened = ref(false)
 const isModalDeleteOpened = ref(false)
+const isModalEditOpened = ref(false)
 const rows = ref([
   {
     taskName: "Demo 1",
@@ -123,7 +130,20 @@ const openModalDelete = (id, name) => {
   isModalDeleteOpened.value = true
 }
 const closeModalDelete = () => {
+  idTask.value = 0
   isModalDeleteOpened.value = false
+  getData()
+}
+
+const openModalEdit = (id, row) => {
+  idTask.value = id
+  editData.value = row
+  isModalEditOpened.value = true
+}
+const closeModalEdit = () => {
+  idTask.value = 0
+  editData.value = {}
+  isModalEditOpened.value = false
   getData()
 }
 </script>
@@ -177,6 +197,17 @@ const closeModalDelete = () => {
 
 .button2:hover {
   background-color: #ff1a1a;
+  color: white;
+}
+
+.button3 {
+  background-color: white; 
+  color: black; 
+  border: 1px solid #ffdb4d;
+}
+
+.button3:hover {
+  background-color: #e6b800;
   color: white;
 }
 </style>
