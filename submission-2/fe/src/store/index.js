@@ -1,7 +1,9 @@
 import { createStore } from 'vuex'
+import taskStore from './task'
 
 export default createStore({
   state: {
+    countMe: 1
   },
   getters: {
   },
@@ -10,5 +12,6 @@ export default createStore({
   actions: {
   },
   modules: {
+    task: taskStore
   }
 })
