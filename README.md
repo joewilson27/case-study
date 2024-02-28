@@ -1,10 +1,10 @@
-Case 1
+- Case 1 -
 Download file, then run with your favorite terminal / command prompt: node demo.js
 
-Case 2
+- Case 2 -
 Download FE (Frontend), then run: npm install && npm run serve
 
-Download BE (Backend), 
+Download BE (Backend)
 then run: 
 go get -u github.com/gofiber/fiber/v2
 go get -u gorm.io/gorm
